@@ -86,7 +86,7 @@ RUN openedx-assets xmodule \
 # Build themes
 RUN ln -s /openedx/edx-platform/themes /openedx/themes \
     && openedx-assets collect --settings=prod.assets \
-    && openedx-assets collect --settings=tutor.assets
+    && openedx-assets collect --settings=prod.assets
 
 # service variant is "lms" or "cms"
 ENV SERVICE_VARIANT lms
@@ -105,6 +105,9 @@ FROM base as testing
 RUN grep -v -x -f /openedx/edx-platform/requirements/edx/base.txt /openedx/edx-platform/requirements/edx/development.txt > /tmp/requirements.txt \
     && pip install -r /tmp/requirements.txt \
     && rm /tmp/requirements.txt
+
+# Install redis for session handling
+RUN pip install django-redis==4.12.1
 
 ## Update sqlite3 to prevent segfaults on tests
 RUN cd /tmp \
