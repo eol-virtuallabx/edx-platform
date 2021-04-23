@@ -950,8 +950,8 @@ msgid ""
 "link from {platform_name}. If you need help, contact "
 "{link_start}{platform_name} Support{link_end}."
 msgstr ""
-"Busque un enlace de activación de cuenta de {platform_name} en su bandeja de"
-" {email_start}{email}{email_end}. Si necesite asistencia, contáctese con "
+"Hemos enviado un mensaje con un enlace de activación de su cuenta en {platform_name} a su correo "
+" {email_start}{email}{email_end}. Si necesita ayuda, contáctese con "
 "{link_start}Soporte de {platform_name}{link_end}."
 
 #: common/djangoapps/student/views/dashboard.py
@@ -1678,7 +1678,7 @@ msgstr[1] "Esta contraseña debe contener al menos %(min_numeric)d números."
 #, python-format
 msgid "Your password must contain at least %(min_numeric)d number."
 msgid_plural "Your password must contain at least %(min_numeric)d numbers."
-msgstr[0] "Tu contraseña debe contenr al menos %(min_numeric)d número."
+msgstr[0] "Tu contraseña debe contener al menos %(min_numeric)d número."
 msgstr[1] "Tu contraseña debe contener al menos %(min_numeric)d números."
 
 #: common/djangoapps/util/password_policy_validators.py
@@ -5281,10 +5281,11 @@ msgid ""
 "This is a routed Account Activation email for %(routed_user)s "
 "(%(routed_user_email)s): %(routed_profile_name)s"
 msgstr ""
-
+"Este es un correo de Activación de Cuenta enviado a %(routed_user)s "
+"(%(routed_user_email)s): %(routed_profile_name)s"
 #: common/templates/student/edx_ace/accountactivation/email/body.html
 msgid "Account Activation"
-msgstr ""
+msgstr "Activación Cuenta"
 
 #: common/templates/student/edx_ace/accountactivation/email/body.html
 #: common/templates/student/edx_ace/accountactivation/email/body.txt
@@ -5294,16 +5295,19 @@ msgid ""
 "engaging, high-quality %(platform_name)s courses. Note that you will not be "
 "able to log back into your account until you have activated it."
 msgstr ""
+"Estas a un paso de completar tu registro. Utiliza el enlace a continuación para activar tu cuenta "
+"y asi poder acceder a los cursos de  %(platform_name)s. Considera que no podras "
+"acceder nuevamente a tu cuenta hasta que no la hayas activado."
 
 #: common/templates/student/edx_ace/accountactivation/email/body.html
 msgid "Activate Your Account"
-msgstr ""
+msgstr "Activa tu cuenta"
 
 #: common/templates/student/edx_ace/accountactivation/email/body.html
 #: common/templates/student/edx_ace/accountactivation/email/body.txt
 #, python-format
 msgid "Enjoy learning with %(platform_name)s."
-msgstr ""
+msgstr "Muchas gracias por inscribirte en %(platform_name)s."
 
 #: common/templates/student/edx_ace/accountactivation/email/body.html
 #, python-format, python-brace-format
@@ -5312,6 +5316,9 @@ msgid ""
 "{start_anchor_web}%(support_url)s{end_anchor} or email "
 "{start_anchor_email}%(support_email)s{end_anchor}."
 msgstr ""
+"Si necesitas ayuda, por favor revisa nuestra web "
+"{start_anchor_web}%(support_url)s{end_anchor} o escribenos a "
+"{start_anchor_email}%(support_email)s{end_anchor}."
 
 #: common/templates/student/edx_ace/accountactivation/email/body.html
 #: common/templates/student/edx_ace/accountactivation/email/body.txt
@@ -5321,18 +5328,21 @@ msgid ""
 "attempted to create an account on %(platform_name)s using this email "
 "address."
 msgstr ""
-
+"Este correo ha sido enviado automaticamente por %(lms_url)s debido a que alguien "
+"ha intentado crear una cuenta en  %(platform_name)s usando esta dirección "
+"de correo."
 #: common/templates/student/edx_ace/accountactivation/email/body.txt
 #, python-format
 msgid ""
 "If you need help, please use our web form at %(support_url)s or email "
 "%(support_email)s."
 msgstr ""
-
+"Si necesitas ayuda, por favor utiliza nuestro formulario  %(support_url)s o correo "
+"%(support_email)s."
 #: common/templates/student/edx_ace/accountactivation/email/subject.txt
 #, python-format
 msgid "Action Required: Activate your %(platform_name)s account"
-msgstr ""
+msgstr "Acción Requerida: Activa tu cuenta en %(platform_name)s"
 
 #: common/templates/student/edx_ace/accountrecovery/email/body.html
 msgid "Create Password"
@@ -5345,8 +5355,8 @@ msgid ""
 "You're receiving this e-mail because you requested to create a password for "
 "your user account at %(platform_name)s."
 msgstr ""
-"Ha recibido este correo electrónico porque solicitó crear una constraseña "
-"para su cuenta de usuario en %(platform_name)s"
+"Has recibido este correo electrónico porque solicitaste crear una constraseña "
+"para tu cuenta de usuario en %(platform_name)s"
 
 #: common/templates/student/edx_ace/accountrecovery/email/body.html
 #: common/templates/student/edx_ace/accountrecovery/email/body.txt
@@ -5453,7 +5463,7 @@ msgid ""
 "this request, please contact us immediately. Contact information is listed "
 "at:"
 msgstr ""
-"Este correo es para confirmar que has  cambiado la dirección de correo "
+"Este correo es para confirmar que has cambiado la dirección de correo "
 "asociada con %(platform_name)s de %(old_email)s a %(new_email)s. Si no "
 "hiciste esta solicitud, por favor contáctanos inmediatamente. La información"
 " de contacto se encuentra en: "
@@ -13901,7 +13911,7 @@ msgstr "Guardar"
 #: cms/templates/maintenance/_announcement_index.html
 #: lms/templates/sysadmin_dashboard_gitlogs.html
 msgid "previous"
-msgstr "previo"
+msgstr "anterior"
 
 #: cms/templates/maintenance/_announcement_index.html
 #: lms/templates/sysadmin_dashboard_gitlogs.html
@@ -14739,13 +14749,13 @@ msgstr "¡Importante!"
 #: lms/templates/seq_module.html
 msgctxt "unit"
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #. Translators: A button for showing the Next Unit
 #: lms/templates/seq_module.html
 msgctxt "unit"
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
 #: lms/templates/seq_module.html
 msgid "Sequence"
@@ -17348,7 +17358,7 @@ msgstr "Ver las calificaciones en Studio"
 
 #: lms/templates/courseware/progress.html
 msgid "Course Progress for '{username}' ({email})"
-msgstr ""
+msgstr "Progreso en el curso para '{username}' ({email})"
 
 #: lms/templates/courseware/progress.html
 msgid "View Certificate"
@@ -21921,7 +21931,7 @@ msgstr "Algunos Derechos Reservados"
 
 #: openedx/features/course_experience/templates/course_experience/course-dates-fragment.html
 msgid "Upcoming Dates"
-msgstr ""
+msgstr "Próximas Fechas"
 
 #: openedx/features/course_experience/templates/course_experience/course-home-fragment.html
 msgid "Goal: "

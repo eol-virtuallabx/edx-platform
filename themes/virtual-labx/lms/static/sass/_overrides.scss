@@ -1,0 +1,614 @@
+.container{
+	padding:0;
+}
+.wrapper-footer .wrapper-logo img{
+  max-width:100% !important;
+}
+header.global-header{
+        background: #ff2160 !important;
+	border-bottom: 1px solid #ff2160 !important;
+	box-shadow: none !important;
+        padding: 30px 0 !important;
+}
+.content-wrapper.main-container.container{
+	padding:0;
+}
+.wrapper.wrapper-footer.container{	
+    background: #303030;
+    border: none;
+    box-shadow: none;
+    padding:16px;
+}
+.wrapper-footer{
+	background: #303030 !important;
+	max-height: 150px !important;
+	box-shadow:none !important;
+	border:none !important;
+	margin:0 !important;
+}
+.courses-container{
+	padding:16px;
+}
+@media (max-width:399px){
+	.global-header .header-logo a .logo{
+                width:70% !important;
+        }
+}
+@media (min-width:400px) and (max-width:650px){
+	.global-header .header-logo a .logo{
+                width:80% !important;
+        }
+}
+@media (min-width:651px) and (max-width:991px){
+        .global-header .header-logo a .logo{
+                width:60% !important;
+        }
+}
+@media (max-width:991px){
+	.home > header{
+		width:100%;
+		max-height:auto;
+	}
+	.global-header .header-logo a{
+		margin: 0 8px 0 18% !important;
+		height: unset !important;
+	}
+	.global-header .header-logo a .logo{
+                height: auto !important;
+		margin:0 !important;
+		float:unset !important;
+        }
+	.course-info .course-sidebar{
+		width:100%;
+	}
+	.global-header .hamburger-menu .line{
+               background-color:#fff !important;
+        }
+}
+@media (min-width:768px) and (max-width:991px){
+	.hamburger-menu{
+		margin-top:5px !important;
+	}
+}
+@media (min-width:992px) and (max-width:1180px){
+	body.is-authenticated .global-header .header-logo a .logo,.global-header.slim .header-logo a .logo{
+		max-width: 400px !important;
+                margin: 0 0 0 16px !important;
+	}
+}
+@media (min-width:992px){
+	.home > header{
+		max-height:560px;
+	}
+	.global-header .nav-links .secondary{
+		    margin: 15px 40px 0 0;
+	}
+	.global-header .nav-links .main .nav-tab a.active, .global-header .nav-links .main .nav-tab a:hover{
+		border-bottom-color:#564d78 !important
+	}
+	.global-header .header-logo a{
+		margin:0 0 0 16px;
+	}
+	.global-header .header-logo a .logo{
+		max-width: 400px;
+                height: auto;
+	}
+	.global-header .header-logo .course-header{
+		color:#fff !important;
+		display: none!important;
+	}
+	.global-header .nav-links .secondary .nav-item a{
+		color:#fff !important;
+	}
+	.global-header .nav-links .secondary .dropdown-user-menu .dropdown-item a{
+		color:#313131 !important;
+	}
+	.global-header .nav-links .secondary .toggle-user-dropdown{
+		 color:#fff;
+	}
+	.global-header .nav-links .main .nav-tab a{
+		color:#fff !important;
+	}
+	.wrapper-footer .wrapper-logo img{
+                max-width:400px !important;
+	}
+	
+}
+a.sign-in-btn,a.register-btn{
+	background-color:#564d78 !important;
+	color:#fff !important;
+	border: none !important;
+	font-family: 'Exo 2', sans-serif !important;
+}
+a.sign-in-btn:hover,a.register-btn:hover{
+	 background-color:#392f5d !important;
+	 color:#fff !important;
+	border: none !important;
+	font-family: 'Exo 2', sans-serif !important;
+}
+.courses-container .courses .course{
+	    border-bottom: none !important;
+}
+.courses-container .courses .course .course-info .course-title{
+	color: #564d78 !important;
+}
+	
+
+.course-header{
+	color:#fff !important;
+	display: none!important;
+}
+.wrapper-preview-menu{
+	 background-color:#392f5d !important;
+}
+.labx-header-container{
+	    background: #ff2160;
+}
+.content-wrapper.main-container{
+	padding: 0;
+        margin: 0;
+}
+.labx-footer-wrapper{
+	background: #303030 !important;
+	bottom: 0 !important;
+        position: absolute !important;
+        width: 100% !important;
+        min-height: 150px !important;
+	max-height: 150px !important;
+}
+
+.courses-container .courses .course .course-info,.courses-container .courses .course .course-info h2{
+	font-family: 'Exo 2', sans-serif !important;
+}
+#carousel-virtual-labx{
+	    max-height: 560px;
+}
+
+.course-tittle{
+    background: #00bcfc;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    font-weight: 1000;
+    font-family: 'Exo 2', sans-serif;
+    margin: 32px 0 0;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 2px 20px;
+}
+
+.learn-more{
+	font-family: 'Exo 2', sans-serif;
+}
+.global-header .nav-links .main .nav-tab a {
+	color:#fff;
+}
+
+.is-authenticated .global-header.container{
+	max-width:100%  !important;
+}
+.view-profile .global-header.container{
+        max-width:100%  !important;
+}
+.main-header{
+	    background: #ff2160 !important;
+    border: none !important;
+}
+.is-authenticated .wrapper-footer.container{
+	 max-width:100%  !important;
+}
+
+.view-profile .wrapper-footer.container{
+         max-width:100%  !important;
+}
+
+
+// INICIO Caja Los Andes Formulario
+
+#register-form div.form-field.text-name,
+#register-form div.form-field.select-country,
+#register-form div.form-field.select-year_of_birth,
+#register-form div.form-field.select-labx_part_provincia,
+#register-form div.form-field.select-labx_part_comuna,
+#register-form div.form-field.select-labx_lab_provincia,
+#register-form div.form-field.select-labx_lab_comuna,
+#register-form div.form-field.text-labx_firstname,
+#register-form div.form-field.text-labx_lastname,
+#register-form div.form-field.text-labx_birth_date,
+#register-form div.form-field.select-labx_gender,
+#register-form div.form-field.text-labx_phone,
+#register-form div.form-field.select-labx_country_nac,
+#register-form div.form-field.text-labx_part_address,
+#register-form div.form-field.select-labx_part_region,
+#register-form div.form-field.select-labx_part_provincia,
+#register-form div.form-field.select-labx_part_comuna,
+#register-form div.form-field.text-labx_lab_address,
+#register-form div.form-field.select-labx_lab_region,
+#register-form div.form-field.select-labx_lab_provincia,
+#register-form div.form-field.select-labx_lab_comuna,
+#register-form div.form-field.select-labx_work,
+#register-form div.form-field.select-labx_educ_level,
+#register-form div.form-field.text-labx_lab_lugar,
+#register-form div.form-field.select-labx_lab_type,
+#register-form div.form-field.select-labx_lab_rubro,
+#register-form div.form-field.text-labx_lab_cargo,
+.action.action-primary.action-update.js-register.register-button
+{
+    display: none;
+}
+div#register-form ul.message-copy{
+    display:none !important;
+}
+div#register-form div.submission-error:after{
+    content:'Por favor revisa los errores';
+}
+#register-labx_birth_date-validation-error-msg.error_labx_invalid:after{
+    content:'Por favor ingrese una fecha valida en el formato indicado.';
+}
+.login-register .form-field label.labx_error,.login-register .form-field label.success.labx_error{
+    color: #b20610 !important;
+}
+.login-register .form-field input.labx_error,.login-register .form-field input.success.labx_error{
+    border-color: #b20610 !important;
+}
+form#register.register-form{
+    padding-bottom:20px;
+}
+form#register.register-form:after{
+    content:'(*) Campos obligatorios';
+    margin-top:20px;
+    color:red;
+}
+.login-register .form-field label.focus-in,.login-register .form-field label.focus-out{
+    position:relative;
+    padding-top: 5px;
+    padding-left: 2px;
+    opacity: 1;
+    z-index: 1;
+    padding-bottom: 3px;
+}
+
+.login-register .form-field label span.icon.fa.fa-exclamation,.login-register .form-field label span.icon.fa.success.fa-check{
+    display:none !important;
+}
+.login-register .form-field label.success span.label-text{
+    color: rgb(0, 0, 0) !important;
+}
+.login-register .form-field input.success{
+    border-color:#c8c8c8 !important;
+}
+.login-register .form-field select.success{
+    outline-color: #c8c8c8 !important;
+}
+.login-register .form-field label span.label-required,.login-register .form-field label span.label-required.hidden{
+    visibility: hidden;
+    display:inline-block !important;
+}
+.login-register .form-field label span.label-required:before,.login-register .form-field label span.label-required.hidden:before{
+    content:'*';
+    color: red!important;
+    vertical-align: unset!important;
+    visibility: visible;
+}
+.login-register .form-field span.tip.tip-input,.login-register .form-field span.tip.tip-input.hidden{
+    display:block !important;
+    visibility:visible !important;
+}
+.login-register .form-field span.tip.error,.login-register .form-field span.tip.tip.error.hidden{
+    display:block !important;
+    visibility:visible !important;
+}
+
+
+#register-form .form-field.text-labx_firstname,#register-form .form-field.text-labx_rut,#register-form .form-field.text-labx_part_address,#register-form .form-field.text-labx_lab_address,#register-form .form-field.select-labx_work,#register-form .form-field.text-labx_lab_lugar{
+    padding-top:36px;
+    border-top: 1px solid gray;
+    margin-top: 36px;
+}
+
+div.plaintext-honor_code{
+    visibility: hidden !important;
+    height: 10px;
+}
+
+@media (min-width: 992px){
+    .login-register{
+        max-width: 40%;
+        margin-bottom: 64px;
+    }
+}
+@media (max-width: 991px){
+    .login-register{
+        max-width: 100%;
+        margin-bottom: 64px;
+    }
+    .course-info .course-sidebar{
+        width:100%;
+    }
+    #login-and-registration-container.login-register #login-form.form-wrapper,#login-and-registration-container.login-register #password-reset-form.form-wrapper{
+        padding: 20px 30px 20px 30px;
+    }
+    .course-info header.course-profile{
+        padding-top:0;
+        height:auto;
+    }
+    .dashboard .side-container{
+        margin:0;
+    }
+    .member-list-widget .bottom-bar input.add-field{
+        width:100% !important;
+    }
+    .member-list-widget .bottom-bar input.add{
+        width: 100%;
+        position: relative !important;
+        margin-left: 20px;
+    }
+    .instructor-dashboard-content-2 input[type="button"]{
+        width:100%;
+    }
+    .input cohort-select{
+        width:100% !important;
+    }
+    .cohort-management-nav-form{
+        width:100% !important;
+        padding-bottom:8px;
+    }
+    .course-info header.course-profile .intro-inner-wrapper .intro .main-cta a.register{
+	width:100% !important;
+    }
+}
+.account-settings-sections .section .account-settings-section-body .u-field .field .field-label{
+    white-space: normal;
+}
+.login-register .form-type{
+    margin: 0 auto !important;
+}
+#register-anchor{
+    max-width: 80%;
+}
+
+
+.form-field.text-labx_part_address:before{
+    content:'Dirección Particular';
+    margin-top:60px;
+    font-size: 24px;
+    font-weight: 700;
+    color:black;
+}
+
+.form-field.text-labx_lab_address:before{
+    content:'Dirección Laboral';
+    margin-top:60px;
+    font-size: 24px;
+    font-weight: 700;
+    color:black;
+}
+
+.form-field.select-labx_work:before{
+    content:'Información Estudios';
+    margin-top:60px;
+    font-size: 24px;
+    font-weight: 700;
+    color:black;
+}
+
+.form-field.text-labx_lab_lugar:before{
+    content:'Información Trabajo';
+    margin-top:60px;
+    font-size: 24px;
+    font-weight: 700;
+    color:black;
+}
+.form-field.text-labx_firstname:before{
+    content:'Información Personal';
+    margin-top:60px;
+    font-size: 24px;
+    font-weight: 700;
+    color:black;
+}
+label[for=register-labx_rut]{
+    margin-top:20px;
+}
+.labx_show_field{
+    display:block !important;
+}
+#btn-check-caja{
+	text-transform: none;
+	font-weight: 600;
+	letter-spacing: normal;
+	margin-top: 20px;
+	background: #126f9a;
+	color: #fff;
+	border: none;
+	padding: 10px 15px;
+	text-align: center;
+	text-shadow: none;
+	border-radius: 2px;
+	box-sizing: border-box;
+	transition: color 0.25s ease-in-out, background 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+	display: inline-block;
+	cursor: pointer;
+	text-decoration: none;
+}
+#div-btn-check-caja{
+	display:none;
+}
+
+#register-labx_rut-validation-error-msg.error_labx_invalid:after {
+  content: 'Por favor ingrese un RUT valido.'; 
+}
+#div-result-check-caja{
+	margin-top: 20px;
+        color: #065683;
+	text-align: justify;
+	display:none;
+}
+#div-message-caja{
+	margin-top: 20px;
+        color: #065683;
+	text-align: justify;
+}
+.labx_show_alert{
+	color: #b20610 !important;
+}
+#div-caja-spinner{
+	padding: 10px 0;
+	display:none;
+}
+#div-caja-spinner img{
+	margin-right: 10px;
+}
+
+
+.account-settings-sections .section .account-settings-section-body .u-field.u-field-level_of_education,.account-settings-sections .section .account-settings-section-body .u-field.u-field-gender{
+	display:none;
+}
+.wrapper-account-settings .wrapper-header .account-nav{
+	display:none;
+}
+.wrapper-account-settings .wrapper-header{
+	border-bottom:none;
+	height:auto;
+}
+.wrapper-account-settings .wrapper-header .header-title{
+	padding-left:55px;
+}
+body.labx_wide  .labx-header-container header.global-header{
+	margin: 0;
+        min-width: 100%;
+}
+
+body.labx_wide .labx-footer-wrapper .wrapper-footer{
+	margin: 0;
+    min-width: 100%;
+}
+
+.view-profile .profile-self .wrapper-profile-field-account-privacy .wrapper-profile-records{
+    display:none !important;
+}
+.mobile-menu {
+    border-top: none;
+    margin: 85px 0 0;
+}
+.container{
+	margin-right: auto !important;
+        margin-left: auto !important;
+}
+
+.course-info header.course-profile{
+	border:none !important;
+}
+.course-info header.course-profile .intro-inner-wrapper{
+	border:none !important;
+}
+
+.course-info header.course-profile .intro-inner-wrapper .intro{
+	padding:20px 0 !important;
+}
+
+body.view-in-course .wrapper-course-material, body.view-in-course .wrapper-preview-menu{
+	min-height: 46px;
+}
+.wrapper-course-material .course-material, .wrapper-preview-menu .preview-menu{
+	margin:0 !important;
+}
+body{
+    position: relative!important;
+    min-height: 100vh!important;
+    height: auto!important;
+}
+.labx-content-wrapper{
+	    padding-bottom: 220px !important;
+}
+.course-info .details,.course-info header.course-profile .intro-inner-wrapper .intro > .heading-group h1{
+	font-family: 'Exo 2', sans-serif;
+        text-align: justify;
+}
+.course-info .safari-wrapper{
+	padding-bottom:0;
+}
+
+.global-header .header-logo a .logo{
+	height:60px;
+}
+
+.help-vlabx{
+   position: fixed;
+    right: 12px;
+    background-color: #564d78;
+    z-index: 1000;
+    bottom: 12px;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1.2em;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.20), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+    font-family: 'Exo 2', sans-serif !important;
+    font-weight: 900;
+    line-height: 1.5;
+}
+.help-vlabx a{
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+.help-vlabx:hover{
+  background-color: #392f5d !important;
+}
+.help-vlabx span{
+      margin-left: 6px;
+}
+.help-link{
+        display:none !important;
+}
+.help-modal-labx.modal{
+	width: 100%;
+    background-color: transparent;
+}
+.help-modal-labx.modal .modal-dialog .modal-header{
+	background-color: #ff2160;
+}
+.help-modal-labx.modal .modal-dialog .modal-header img{
+	width: 100%;
+    height: auto;
+}
+.help-modal-labx.modal .modal-dialog .modal-content{
+	max-height: 90vh;
+}
+.help-modal-labx.modal .modal-dialog .modal-body{
+	text-align: center;
+	font-family: 'Exo 2', sans-serif !important;
+	padding: 2rem 1rem;
+	font-size: 1.1em;
+	max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+.help-modal-labx.modal .modal-dialog .modal-body a:hover{
+	text-decoration: none;
+}
+.help-modal-labx.modal .modal-dialog .modal-footer{
+	justify-content: center;
+}
+.help-modal-labx.modal .modal-dialog .btn.btn-secondary{
+    background-color: #564d78;
+    border: none !important;
+    box-shadow: none !important;
+        color: #ffffff;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1.2em;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,0.20), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+    font-family: 'Exo 2', sans-serif !important;
+    font-weight: 900;
+}
+.help-modal-labx.modal .modal-dialog .btn.btn-secondary:hover{
+	background-color: #392f5d !important;
+	border: none !important;
+    box-shadow: none !important;
+}
+.modal{
+    background-color: transparent !important;
+    box-shadow: none;
+}
+

@@ -94,6 +94,8 @@ notification_prefs_urls = [
 
 
 urlpatterns = [
+    #LABX
+    url(r'^labx_api/', include('custom_reg_form.urls')),
     url(r'^$', branding_views.index, name='root'),  # Main marketing page, or redirect to courseware
 
     url(r'', include('student.urls')),

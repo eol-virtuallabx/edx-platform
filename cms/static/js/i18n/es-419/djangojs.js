@@ -1600,7 +1600,7 @@
     "Sign in using %(providerName)s": "Iniciar sesi\u00f3n usando %(providerName)s",
     "Sign in with %(providerName)s": "Iniciar sesi\u00f3n usando %(providerName)s",
     "Sign in with Institution/Campus Credentials": "Iniciar sesi\u00f3n con las credenciales de la instituci\u00f3n o el Campus",
-    "Sign in.": "Loguearse.",
+    "Sign in.": "Iniciar Sesi\u00f3n.",
     "Signatory": "Signatario",
     "Signatory field(s) has invalid data.": "Uno o mas campo del signatario tiene(n) informaci\u00f3n inv\u00e1lida",
     "Signature Image": "Imagen de la firma",

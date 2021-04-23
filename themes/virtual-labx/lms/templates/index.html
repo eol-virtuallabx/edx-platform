@@ -1,0 +1,107 @@
+<%page expression_filter="h"/>
+<%inherit file="main.html" />
+<%namespace name='static' file='static_content.html'/>
+<%!
+from django.utils.translation import ugettext as _
+from django.urls import reverse
+
+from openedx.core.djangolib.markup import HTML, Text
+%>
+##<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+##<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+##<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+##<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<main id="main" aria-label="Content" tabindex="-1">
+    <section class="home">
+      <header>
+        ##<div class="outer-wrapper">
+        ##  <div class="title">
+        ##    <div class="heading-group">
+        ##      % if homepage_overlay_html:
+        ##        ${homepage_overlay_html | n, decode.utf8}
+        ##      % else:
+        ##        <%include file="index_overlay.html" />
+        ##      % endif
+        ##    </div>
+        ##    % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+        ##      <div class="course-search">
+        ##        <form method="get" action="/courses">
+        ##          <label><span class="sr">${_("Search for a course")}</span>
+        ##            <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
+        ##          </label>
+        ##          <button class="search-button" type="submit">
+        ##            <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
+        ##          </button>
+        ##        </form>
+        ##      </div>
+        ##    % endif
+
+        ##  </div>
+
+        ##  <%include file="index_promo_video.html" />
+        ##</div>
+		<div id="carousel-virtual-labx" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+    				<li data-target="#carousel-virtual-labx" data-slide-to="0" class="active"></li>
+    				<li data-target="#carousel-virtual-labx" data-slide-to="1"></li>
+    				<li data-target="#carousel-virtual-labx" data-slide-to="2"></li>
+				<li data-target="#carousel-virtual-labx" data-slide-to="3"></li>
+  			</ol>
+  			<div class="carousel-inner">
+    				<div class="carousel-item active">
+        				<img src="${static.url('virtual-labx/images/sld_1.jpg')}" class="d-block w-100" alt="...">
+    				</div>
+    				<div class="carousel-item">
+      					<img src="${static.url('virtual-labx/images/sld_2.jpg')}" class="d-block w-100" alt="...">
+    				</div>
+    				<div class="carousel-item">
+      					<img src="${static.url('virtual-labx/images/edx_01.jpg')}" class="d-block w-100" alt="...">
+    				</div>
+				 <div class="carousel-item">
+                                        <img src="${static.url('virtual-labx/images/edx_02.jpg')}" class="d-block w-100" alt="...">
+                                </div>
+  			</div>
+			<a class="carousel-control-prev" href="#carousel-virtual-labx" role="button" data-slide="prev">
+    				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    				<span class="sr-only">Anterior</span>
+  			</a>
+  			<a class="carousel-control-next" href="#carousel-virtual-labx" role="button" data-slide="next">
+    				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+    				<span class="sr-only">Siguiente</span>
+  			</a>
+		</div>
+      </header>
+      <%include file="${courses_list}" />
+
+    </section>
+</main>
+
+% if show_homepage_promo_video:
+  <section id="video-modal" class="modal home-page-video-modal video-modal">
+    <div class="inner-wrapper">
+      <iframe title="YouTube Video" width="640" height="360" src="//www.youtube.com/embed/${homepage_promo_video_youtube_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+% endif
+
+<%block name="js_extra">
+   <script type="text/javascript">
+      $(window).load(function() {
+         if(getParameterByName('next')) {
+              $('#login').trigger("click");
+         }
+      })
+   </script>
+</%block>
+
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
+##% if not uses_bootstrap:
+##  ## xss-lint: disable=mako-invalid-js-filter
+##  <script type="text/javascript" src="${static.url('common/js/vendor/bootstrap.bundle.js')}"></script>
+##% endif
