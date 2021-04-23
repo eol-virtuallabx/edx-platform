@@ -18,10 +18,8 @@ log = logging.getLogger(__name__)
 def validate_rut_caja(request,rut):
 	if request.method == 'GET':
 		try:
-			#client = Client('http://wservicesqa.cajalosandes.cl/wsConvenios/services/WebServiceConvenios?wsdl')
 			client = Client('http://wservices.cajalosandes.cl/wsConvenios/services/WebServiceConvenios?wsdl')
-			#data = client.service.requestPrestador(rutPrestador='609100001',tipoPrestador='2',usuario='user',clave='pass',rutConsulta=re.sub('\D', '', rut))
-			data = client.service.requestPrestador(rutPrestador='609100001',tipoPrestador='2',usuario='wsConvenios',clave='L0s1nd3s',rutConsulta=re.sub('\DKk', '', rut))
+			data = client.service.requestPrestador(rutPrestador=settings.CAJA_ANDES.get('rutPrestador'),tipoPrestador=settings.CAJA_ANDES.get('tipoPrestador'),usuario=settings.CAJA_ANDES.get('usuario'),clave=settings.CAJA_ANDES.get('clave'),rutConsulta=re.sub('\DKk', '', rut))
 			result = BeautifulSoup(data,'xml').find('codigoMensaje').string
 			return JsonResponse({'result':True if result == '100' else False})
 		except Exception as e:
