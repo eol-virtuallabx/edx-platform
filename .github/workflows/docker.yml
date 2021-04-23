@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build Open edX Base
+        run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:juniper
+
+      - name: Push to juniper
+        #if: github.ref == 'refs/heads/eol/juniper.master'
+        run: |
+          echo "${CR_PAT}" | docker login ghcr.io -u eol-vl --password-stdin
+          docker push ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA}
+          docker push ghcr.io/eol-virtuallabx/edx-platform:juniper
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
