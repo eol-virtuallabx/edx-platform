@@ -9026,7 +9026,7 @@ msgstr "¿Ya tiene una cuenta en la plataforma {platformName}?"
 
 #: lms/templates/student_account/register.underscore
 msgid "Sign in."
-msgstr "Loguearse."
+msgstr "Iniciar Sesión."
 
 #: lms/templates/student_account/register.underscore
 msgid "Create an account using"
