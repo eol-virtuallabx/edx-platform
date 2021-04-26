@@ -78,7 +78,8 @@ ENV REVISION_CFG /openedx/config/revision.yml
 # and requires a complex settings file. Instead, we decompose the commands
 # and run each one individually to collect the production static assets to
 # /openedx/staticfiles.
-RUN openedx-assets xmodule \
+RUN ln -s /openedx/edx-platform/themes /openedx/themes \
+    && openedx-assets xmodule \
     && openedx-assets npm \
     && openedx-assets webpack --env=prod \
     && openedx-assets common \
@@ -86,8 +87,7 @@ RUN openedx-assets xmodule \
     && python manage.py cms --settings=prod.assets compilejsi18n
 
 # Build themes
-RUN ln -s /openedx/edx-platform/themes /openedx/themes \
-    && openedx-assets collect --settings=prod.assets \
+RUN openedx-assets collect --settings=prod.assets \
     && openedx-assets collect --settings=prod.assets
 
 # service variant is "lms" or "cms"
