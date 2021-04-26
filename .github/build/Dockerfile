@@ -81,7 +81,9 @@ ENV REVISION_CFG /openedx/config/revision.yml
 RUN openedx-assets xmodule \
     && openedx-assets npm \
     && openedx-assets webpack --env=prod \
-    && openedx-assets common
+    && openedx-assets common \
+    && python manage.py lms --settings=prod.assets compilejsi18n \
+    && python manage.py cms --settings=prod.assets compilejsi18n
 
 # Build themes
 RUN ln -s /openedx/edx-platform/themes /openedx/themes \
