@@ -12,11 +12,16 @@ jobs:
       - name: Build Open edX Base
         run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:juniper
 
+      - name: Build statis assets
+        run: docker build . --file .github/build/Dockerfile --target s3 --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:s3-static-${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:s3-static-juniper
+
       - name: Push to juniper
         #if: github.ref == 'refs/heads/eol/juniper.master'
         run: |
           echo "${CR_PAT}" | docker login ghcr.io -u eol-vl --password-stdin
           docker push ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA}
+          docker push ghcr.io/eol-virtuallabx/edx-platform:s3-static-${GITHUB_SHA}
           docker push ghcr.io/eol-virtuallabx/edx-platform:juniper
+          docker push ghcr.io/eol-virtuallabx/edx-platform:s3-static-juniper
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
