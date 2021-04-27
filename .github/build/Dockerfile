@@ -41,6 +41,7 @@ ENV NO_PYTHON_UNINSTALL 1
 RUN pip install setuptools==44.1.0 pip==20.0.2 wheel==0.34.2 \
   && pip install --src ../venv/src -r requirements/edx/base.txt \
   && pip install boto==2.40.0 \
+  && pip install fluent-logger==0.9.6 python-json-logger==0.1.11 \
   && pip install -e git+https://github.com/eol-uchile/edx-s3-compatibility@ad317969c073f8348da719cdda7b430bcfafb706#egg=edx_s3_compatiblity
 
 # Manually update pytz (Timezones)
