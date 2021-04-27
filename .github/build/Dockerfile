@@ -85,12 +85,12 @@ RUN ln -s /openedx/edx-platform/themes /openedx/themes \
     && openedx-assets npm \
     && openedx-assets webpack --env=prod \
     && openedx-assets common \
+    && openedx-assets themes \
     && python manage.py lms --settings=prod.assets compilejsi18n \
     && python manage.py cms --settings=prod.assets compilejsi18n
 
-# Build themes
-RUN openedx-assets collect --settings=prod.assets \
-    && openedx-assets collect --settings=prod.assets
+# Collect themes
+RUN  openedx-assets collect --settings=prod.assets
 
 # service variant is "lms" or "cms"
 ENV SERVICE_VARIANT lms
