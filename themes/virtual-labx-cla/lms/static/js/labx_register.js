@@ -144,8 +144,7 @@ $(document).ready(function() {
 			$('#register-form div.form-field.select-labx_lab_comuna').addClass('labx_show_field');
 		}
 	}
-	function labx_check_caja_los_andes(e){
-		e.preventDefault();
+	function labx_check_caja_los_andes(token){
 		$('#register-labx_rut').val($('#register-labx_rut').val().trim());
                 var rut  = $('#register-labx_rut').val();
 		if (rut !== null && typeof rut === 'string' && rut.length > 6 && (/^([\d]{1,2})(\.){0,1}([\d]{3})([.]{0,1})([\d]){3}([-]){0,1}([\dkK]){1}$/gm).test(rut) && validate_rut(format_rut(rut))){
@@ -156,6 +155,7 @@ $(document).ready(function() {
 			$('#div-result-check-caja').removeClass('labx_show_alert');
 			$('#div-result-check-caja').removeClass('labx_show_field');
 			$.ajax({
+				headers:{'x-recaptcha-resp':token},
 				url: '/labx_api/v1/validate_rut_caja/'+rut,
 				type:'GET',
 				success: function(resp) {
@@ -203,6 +203,14 @@ $(document).ready(function() {
 		}
 
 	}
+	function labx_precheck_caja_los_andes(e){
+                e.preventDefault();
+                $('#register-labx_rut').val($('#register-labx_rut').val().trim());
+                var rut  = $('#register-labx_rut').val();
+                if (rut !== null && typeof rut === 'string' && rut.length > 6 && (/^([\d]{1,2})(\.){0,1}([\d]{3})([.]{0,1})([\d]){3}([-]){0,1}([\dkK]){1}$/gm).test(rut) && validate_rut(format_rut(rut))){
+                       grecaptcha.execute();
+                }
+        }
 	//$('#login-and-registration-container').on('change','#register-labx_firstname',labx_update_name);
 	//$('#login-and-registration-container').on('change','#register-labx_lastname',labx_update_name);
 	//$('#login-and-registration-container').on('change','#register-labx_birth_date',labx_check_update_birthdate);
@@ -289,9 +297,11 @@ $(document).ready(function() {
         	$(selector_rut).after(rut_button_html);
 		$('#login-and-registration-container').on('change','#register-labx_rut',labx_on_change_labx_rut);
 		$('#div-btn-check-caja').addClass('labx_show_field');
-		$('#btn-check-caja').click(labx_check_caja_los_andes);
+		$('#btn-check-caja').click(labx_precheck_caja_los_andes);
 		$('#div-btn-check-caja').after('<div id="div-result-check-caja"></div>');
 		$('#div-result-check-caja').after('<div id="div-caja-spinner"><img src="/static/images/spinner.gif">Obteniendo información...</div>');
+		$('#div-caja-spinner').after('<div id="caja-recaptcha"></div>');
+		grecaptcha.render("caja-recaptcha",{"sitekey":"6LeT9sAaAAAAAN1U-xFjKT5syWCJtWeBUzlzF9JY","callback":labx_check_caja_los_andes,"size":"invisible"});
 	});
 });
 
