@@ -22,15 +22,16 @@ def validate_rut_caja(request,rut):
             return HttpResponseNotFound()
         if not 'x-recaptcha-resp' in request.headers:
             return HttpResponseForbidden()
-        recaptcha_test = requests.post("https://www.google.com/recaptcha/api/siteverify",data={'secret':settings.CAJA_ANDES.get('recaptchaSecret',''),'response':request.headers.get('x-recaptcha-resp')})
+        recaptcha_test = requests.post("https://www.google.com/recaptcha/api/siteverify",data={'secret':settings.CAJA_ANDES.get('recaptchaSecret'),'response':request.headers.get('x-recaptcha-resp')})
         if not recaptcha_test.status_code == 200:
             return HttpResponseForbidden()
         resp_json = recaptcha_test.json()
         if not resp_json.get('success', None) :
             return HttpResponseForbidden()
-        client = Client('http://wservices.cajalosandes.cl/wsConvenios/services/WebServiceConvenios?wsdl')
+        client = Client(settings.CAJA_ANDES.get('apiUrl'))
         data = client.service.requestPrestador(rutPrestador=settings.CAJA_ANDES.get('rutPrestador'),tipoPrestador=settings.CAJA_ANDES.get('tipoPrestador'),usuario=settings.CAJA_ANDES.get('usuario'),clave=settings.CAJA_ANDES.get('clave'),rutConsulta=re.sub('\DKk', '', rut))
         result = BeautifulSoup(data,'xml').find('codigoMensaje').string
         return JsonResponse({'result':True if result == '100' else False})
     except Exception as e:
+        log.error(str(e))
         return HttpResponseBadRequest(u'Ha ocurrido un error')
