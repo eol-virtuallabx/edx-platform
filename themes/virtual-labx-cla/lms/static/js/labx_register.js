@@ -301,7 +301,7 @@ $(document).ready(function() {
 		$('#div-btn-check-caja').after('<div id="div-result-check-caja"></div>');
 		$('#div-result-check-caja').after('<div id="div-caja-spinner"><img src="/static/images/spinner.gif">Obteniendo información...</div>');
 		$('#div-caja-spinner').after('<div id="caja-recaptcha"></div>');
-		grecaptcha.render("caja-recaptcha",{"sitekey":"6LeT9sAaAAAAAN1U-xFjKT5syWCJtWeBUzlzF9JY","callback":labx_check_caja_los_andes,"size":"invisible"});
+		grecaptcha.render("caja-recaptcha",{"sitekey":"6LcGKsEaAAAAAED-uPQbm9ZQse8Taw291I3k0Nhr","callback":labx_check_caja_los_andes,"size":"invisible"});
 	});
 });
 
