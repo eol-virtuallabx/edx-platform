@@ -27,4 +27,6 @@ jobs:
           CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: Trigger upload
-        run: curl -XPOST -u "eol-vl:${{ secrets.CR_PAT }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/eol-virtuallabx/edx-argocd/dispatches --data '{"event_type": "update-images", "client_payload": {"type": "virtuallabx"}}'
+        #if: github.ref == 'refs/heads/eol/juniper.master'
+        run: |
+          curl -XPOST -u "eol-vl:${{ secrets.CR_PAT }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/eol-virtuallabx/edx-argocd/dispatches --data '{"event_type": "update-images", "client_payload": {"type": "virtuallabx"}}'
