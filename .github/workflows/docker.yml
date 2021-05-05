@@ -9,6 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Pull image as cache
+        run: |
+          docker pull ghcr.io/eol-virtuallabx/edx-platform:juniper || true
+
       - name: Build Open edX Base
         run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:juniper
 
@@ -25,3 +29,8 @@ jobs:
           docker push ghcr.io/eol-virtuallabx/edx-platform:s3-static-juniper
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
+
+      - name: Trigger upload
+        #if: github.ref == 'refs/heads/eol/juniper.master'
+        run: |
+          curl -XPOST -u "eol-vl:${{ secrets.CR_PAT }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/eol-virtuallabx/edx-argocd/dispatches --data '{"event_type": "update-images", "client_payload": {"type": "virtuallabx"}}'
