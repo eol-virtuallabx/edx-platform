@@ -9,6 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Pull image as cache
+        run: |
+          docker pull ghcr.io/eol-virtuallabx/edx-platform:juniper || true
+
       - name: Build Open edX Base
         run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:juniper
 
