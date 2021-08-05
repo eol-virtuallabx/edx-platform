@@ -78,17 +78,10 @@ ENV REVISION_CFG /openedx/config/revision.yml
 # and requires a complex settings file. Instead, we decompose the commands
 # and run each one individually to collect the production static assets to
 # /openedx/staticfiles.
-RUN ln -s /openedx/edx-platform/themes /openedx/themes \
-    && openedx-assets xmodule \
+RUN openedx-assets xmodule \
     && openedx-assets npm \
     && openedx-assets webpack --env=prod \
     && openedx-assets common \
-    && openedx-assets themes \
-    && python manage.py lms --settings=prod.assets compilejsi18n \
-    && python manage.py cms --settings=prod.assets compilejsi18n
-
-# Collect themes
-RUN  openedx-assets collect --settings=prod.assets
 
 # service variant is "lms" or "cms"
 ENV SERVICE_VARIANT lms
@@ -100,7 +93,3 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 # Run server
 EXPOSE 8000
 CMD gunicorn --name ${SERVICE_VARIANT} --workers ${WORKER_COUNT:-1} --max-requests-jitter=50 --bind=0.0.0.0:8000 --max-requests=${MAX_REQUESTS:-1000} --preload ${SERVICE_VARIANT}.wsgi:application
-
-FROM rclone/rclone:1.53 as s3
-
-COPY --from=base /openedx/staticfiles /data
