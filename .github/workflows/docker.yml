@@ -16,8 +16,8 @@ jobs:
       - name: Build Open edX Base
         run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:juniper
 
-      - name: Build statis assets
-        run: docker build . --file .github/build/Dockerfile --target s3 --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:s3-static-${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:s3-static-juniper
+      - name: Build Open edX testing version
+        run: docker build . --file .github/build/Dockerfile --target testing --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:test-${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:test
 
       - name: Push Hash
         run: |

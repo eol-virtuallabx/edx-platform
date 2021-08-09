@@ -93,3 +93,24 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 # Run server
 EXPOSE 8000
 CMD gunicorn --name ${SERVICE_VARIANT} --workers ${WORKER_COUNT:-1} --max-requests-jitter=50 --bind=0.0.0.0:8000 --max-requests=${MAX_REQUESTS:-1000} --preload ${SERVICE_VARIANT}.wsgi:application
+
+# Testing image
+FROM base as testing
+
+# Install testing packages
+RUN grep -v -x -f /openedx/edx-platform/requirements/edx/base.txt /openedx/edx-platform/requirements/edx/development.txt > /tmp/requirements.txt \
+    && pip install -r /tmp/requirements.txt \
+    && rm /tmp/requirements.txt
+
+## Update sqlite3 to prevent segfaults on tests
+RUN cd /tmp \
+    && curl -O https://sqlite.org/2016/sqlite-autoconf-3140100.tar.gz \
+    && tar -xzvf sqlite-autoconf-3140100.tar.gz \
+    && cd sqlite-autoconf-3140100 \
+    && ./configure --prefix=/usr --disable-static CFLAGS="-g" \
+    && make \
+    && make install \
+    && cd \
+    && rm -rf /tmp/sqlite-autoconf-3140100.tar.gz /tmp/sqlite-autoconf-3140100
+
+ENV LD_LIBRARY_PATH /usr/lib
