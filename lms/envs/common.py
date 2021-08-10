@@ -2562,9 +2562,6 @@ INSTALLED_APPS = [
     # Management of per-user schedules
     'openedx.core.djangoapps.schedules',
     'rest_framework_jwt',
-    #Open Labx
-    'custom_reg_form',
-    'certificate_virtual',
 ]
 
 ######################### CSRF #########################################

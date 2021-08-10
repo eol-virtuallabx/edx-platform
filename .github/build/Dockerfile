@@ -78,17 +78,10 @@ ENV REVISION_CFG /openedx/config/revision.yml
 # and requires a complex settings file. Instead, we decompose the commands
 # and run each one individually to collect the production static assets to
 # /openedx/staticfiles.
-RUN ln -s /openedx/edx-platform/themes /openedx/themes \
-    && openedx-assets xmodule \
+RUN openedx-assets xmodule \
     && openedx-assets npm \
     && openedx-assets webpack --env=prod \
-    && openedx-assets common \
-    && openedx-assets themes \
-    && python manage.py lms --settings=prod.assets compilejsi18n \
-    && python manage.py cms --settings=prod.assets compilejsi18n
-
-# Collect themes
-RUN  openedx-assets collect --settings=prod.assets
+    && openedx-assets common
 
 # service variant is "lms" or "cms"
 ENV SERVICE_VARIANT lms
@@ -101,6 +94,23 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 8000
 CMD gunicorn --name ${SERVICE_VARIANT} --workers ${WORKER_COUNT:-1} --max-requests-jitter=50 --bind=0.0.0.0:8000 --max-requests=${MAX_REQUESTS:-1000} --preload ${SERVICE_VARIANT}.wsgi:application
 
-FROM rclone/rclone:1.53 as s3
+# Testing image
+FROM base as testing
 
-COPY --from=base /openedx/staticfiles /data
+# Install testing packages
+RUN grep -v -x -f /openedx/edx-platform/requirements/edx/base.txt /openedx/edx-platform/requirements/edx/development.txt > /tmp/requirements.txt \
+    && pip install -r /tmp/requirements.txt \
+    && rm /tmp/requirements.txt
+
+## Update sqlite3 to prevent segfaults on tests
+RUN cd /tmp \
+    && curl -O https://sqlite.org/2016/sqlite-autoconf-3140100.tar.gz \
+    && tar -xzvf sqlite-autoconf-3140100.tar.gz \
+    && cd sqlite-autoconf-3140100 \
+    && ./configure --prefix=/usr --disable-static CFLAGS="-g" \
+    && make \
+    && make install \
+    && cd \
+    && rm -rf /tmp/sqlite-autoconf-3140100.tar.gz /tmp/sqlite-autoconf-3140100
+
+ENV LD_LIBRARY_PATH /usr/lib
