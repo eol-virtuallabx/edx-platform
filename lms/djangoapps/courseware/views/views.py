@@ -934,7 +934,17 @@ def course_about(request, course_id):
         can_enroll = bool(request.user.has_perm(ENROLL_IN_COURSE, course))
         invitation_only = course.invitation_only
         is_course_full = CourseEnrollment.objects.is_course_full(course)
-
+        ### EOL ###
+        only_one_enroll = True
+        try:
+            enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=request.user.extrainfo.labx_rut, is_active=True).order_by('created')
+            for course_enrolled in enrolled:
+                if course_enrolled.course.end_date is not None and course.enrollment_start is not None and course_enrolled.course.end_date > course.enrollment_start:
+                    can_enroll = False
+                    only_one_enroll = False
+        except (User.extrainfo.RelatedObjectDoesNotExist, AttributeError) as e:
+            log.error('Error - User {} does not have labx_rut or custom_reg_form not installed, exception: {}'.format(request.user, str(e)))
+        ### EOL END ###
         # Register button should be disabled if one of the following is true:
         # - Student is already registered for course
         # - Course is already full
@@ -977,6 +987,7 @@ def course_about(request, course_id):
             'show_courseware_link': show_courseware_link,
             'is_course_full': is_course_full,
             'can_enroll': can_enroll,
+            'only_one_enroll': only_one_enroll,
             'invitation_only': invitation_only,
             'active_reg_button': active_reg_button,
             'is_shib_course': is_shib_course,
