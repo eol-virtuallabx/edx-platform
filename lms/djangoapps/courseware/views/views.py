@@ -939,7 +939,7 @@ def course_about(request, course_id):
         try:
             enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=request.user.extrainfo.labx_rut, is_active=True).order_by('created')
             for course_enrolled in enrolled:
-                if course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start:
+                if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
                     can_enroll = False
                     only_one_enroll = False
         except (User.extrainfo.RelatedObjectDoesNotExist, AttributeError) as e:
