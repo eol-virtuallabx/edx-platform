@@ -25,8 +25,8 @@ from opaque_keys.edx.keys import UsageKey
 from six import text_type
 
 from cms.djangoapps.contentstore.views.videos import TranscriptProvider
-from student.auth import has_course_author_access
-from util.json_request import JsonResponse
+from common.djangoapps.student.auth import has_course_author_access
+from common.djangoapps.util.json_request import JsonResponse
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
@@ -109,7 +109,7 @@ def save_video_transcript(edx_video_id, input_format, transcript_content, langua
             content=transcript_content,
             input_format=input_format,
             output_format=Transcript.SJSON
-        )
+        ).encode()
         create_or_update_video_transcript(
             video_id=edx_video_id,
             language_code=language_code,
@@ -222,7 +222,7 @@ def upload_transcripts(request):
                 content=transcript_file.read().decode('utf-8'),
                 input_format=Transcript.SRT,
                 output_format=Transcript.SJSON
-            )
+            ).encode()
             transcript_created = create_or_update_video_transcript(
                 video_id=edx_video_id,
                 language_code=u'en',

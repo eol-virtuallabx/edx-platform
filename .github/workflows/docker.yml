@@ -14,7 +14,7 @@ jobs:
           docker pull ghcr.io/eol-virtuallabx/edx-platform:juniper || true
 
       - name: Build Open edX Base
-        run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:juniper
+        run: docker build . --file .github/build/Dockerfile --target base --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:koa-${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:koa
 
       - name: Build Open edX testing version
         run: docker build . --file .github/build/Dockerfile --target testing --build-arg EDX_PLATFORM_VERSION=${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:test-${GITHUB_SHA} --tag ghcr.io/eol-virtuallabx/edx-platform:test
@@ -22,16 +22,16 @@ jobs:
       - name: Push Hash
         run: |
           echo "${CR_PAT}" | docker login ghcr.io -u eol-vl --password-stdin
-          docker push ghcr.io/eol-virtuallabx/edx-platform:${GITHUB_SHA}
+          docker push ghcr.io/eol-virtuallabx/edx-platform:koa-${GITHUB_SHA}
           docker push ghcr.io/eol-virtuallabx/edx-platform:test-${GITHUB_SHA}
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
       
-      - name: Push to juniper
-        if: github.ref == 'refs/heads/eol/juniper.master'
+      - name: Push to koa
+        if: github.ref == 'refs/heads/eol/koa.master'
         run: |
           echo "${CR_PAT}" | docker login ghcr.io -u eol-vl --password-stdin
-          docker push ghcr.io/eol-virtuallabx/edx-platform:juniper
+          docker push ghcr.io/eol-virtuallabx/edx-platform:koa
           docker push ghcr.io/eol-virtuallabx/edx-platform:test
         env:
           CR_PAT: ${{ secrets.CR_PAT }}

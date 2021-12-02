@@ -1,14 +1,18 @@
-FROM ubuntu:16.04 as base
+FROM ubuntu:focal as base
+
+############ common to lms & cms
+ARG EDX_PLATFORM_VERSION=undefined
 
 # Install system requirements
 RUN apt update \
     # Global requirements
     && apt install -yq language-pack-en git build-essential software-properties-common curl git-core libxml2-dev libxslt1-dev libmysqlclient-dev libxmlsec1-dev libfreetype6-dev libssl-dev swig gcc g++ \
     # openedx requirements
-    gettext gfortran graphviz libgraphviz-dev libffi-dev libfreetype6-dev libgeos-dev libjpeg8-dev liblapack-dev libpng-dev libsqlite3-dev libxml2-dev libxmlsec1-dev libxslt1-dev ntp pkg-config python3.5 python3-dev python3-pip lynx \
+    gettext gfortran graphviz libgraphviz-dev libffi-dev libfreetype6-dev libgeos-dev libjpeg8-dev liblapack-dev libpng-dev libsqlite3-dev libxml2-dev libxmlsec1-dev libxslt1-dev ntp pkg-config python3 python3-dev python3-pip lynx sudo python3-venv \
     # Our requirements
     mysql-client locales unzip \
     && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/bin/pip \
     && ln -s /usr/bin/pip3 /usr/bin/pip \
     && ln -s /usr/bin/python3 /usr/bin/python
 
