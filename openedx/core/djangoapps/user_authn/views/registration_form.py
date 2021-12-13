@@ -283,8 +283,19 @@ def get_registration_extension_form(*args, **kwargs):
 
     An example form app for this can be found at http://github.com/open-craft/custom-form-app
     """
-    if not getattr(settings, 'REGISTRATION_EXTENSION_FORM', None):
+    ### EOL ###
+    from openedx.core.djangoapps.theming.helpers import get_current_site
+    from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
+    try:
+        current_site = get_current_site()
+        site = SiteConfiguration.objects.get(site=current_site)
+        have_extra = site.site_values.get("REGISTER_EXTRA_PARAMS", None)
+    except SiteConfiguration.DoesNotExist:
+        have_extra = None
+    
+    if not getattr(settings, 'REGISTRATION_EXTENSION_FORM', None) or not have_extra:
         return None
+    ### EOL ###
     module, klass = settings.REGISTRATION_EXTENSION_FORM.rsplit('.', 1)
     module = import_module(module)
     return getattr(module, klass)(*args, **kwargs)
