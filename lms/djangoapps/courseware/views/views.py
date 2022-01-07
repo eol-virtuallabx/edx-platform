@@ -929,8 +929,8 @@ def course_about(request, course_id):
         invitation_only = course.invitation_only
         is_course_full = CourseEnrollment.objects.is_course_full(course)
         ### EOL ###
+        only_one_enroll = True
         if course_key.org == 'CJLANDES':
-            only_one_enroll = True
             try:
                 enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=request.user.extrainfo.labx_rut, is_active=True).order_by('created')
                 for course_enrolled in enrolled:
