@@ -39,7 +39,7 @@ from six import text_type
 from common.djangoapps.track import views as track_views
 from lms.djangoapps.bulk_email.models import Optout
 from common.djangoapps.course_modes.models import CourseMode
-from lms.djangoapps.courseware.courses import get_courses, sort_by_announcement, sort_by_start_date
+from lms.djangoapps.courseware.courses import get_courses, sort_by_announcement, sort_by_start_date, get_course_by_id
 from common.djangoapps.edxmako.shortcuts import marketing_link, render_to_response, render_to_string
 from common.djangoapps.entitlements.models import CourseEntitlement
 from openedx.core.djangoapps.ace_common.template_context import get_base_template_context
@@ -253,6 +253,21 @@ def _update_email_opt_in(request, org):
         email_opt_in_boolean = email_opt_in == 'true'
         preferences_api.update_email_opt_in(request.user, org, email_opt_in_boolean)
 
+def have_enroll(user, course_key):
+    ### EOL ###
+    have_enroll = False
+    course = get_course_by_id(course_key)
+    try:
+        try:
+            enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=user.extrainfo.labx_rut, is_active=True).order_by('created')
+            for course_enrolled in enrolled:
+                if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
+                    have_enroll = True
+        except User.extrainfo.RelatedObjectDoesNotExist:
+            log.error('Error - User {} does not have labx_rut, exception: {}'.format(user, str(e)))
+    except AttributeError:
+        log.error('Error - User {} does not have labx_rut or custom_reg_form not installed, exception: {}'.format(user, str(e)))
+    return have_enroll 
 
 @transaction.non_atomic_requests
 @require_POST
@@ -326,6 +341,14 @@ def change_enrollment(request, check_access=True):
                 course_id
             )
             return HttpResponseBadRequest(_("Course id is invalid"))
+        
+        # EOL
+        if configuration_helpers.get_value('IS_CJLANDES', False) and have_enroll(user, course_id):
+            log.warning(
+                u"User %s is already enrolled in another course",
+                user.username
+            )
+            return HttpResponseBadRequest("Tienes otro curso inscrito para este periodo")
 
         # Record the user's email opt-in preference
         if settings.FEATURES.get('ENABLE_MKTG_EMAIL_OPT_IN'):
