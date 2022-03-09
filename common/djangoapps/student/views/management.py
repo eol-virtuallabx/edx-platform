@@ -49,6 +49,7 @@ from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
 from openedx.core.djangoapps.programs.models import ProgramsApiConfig
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.theming import helpers as theming_helpers
+from openedx.core.djangoapps.theming.helpers import get_current_site
 from openedx.core.djangoapps.user_api.preferences import api as preferences_api
 from openedx.core.djangolib.markup import HTML, Text
 from common.djangoapps.student.helpers import DISABLE_UNENROLL_CERT_STATES, cert_info, generate_activation_email_context
@@ -343,7 +344,8 @@ def change_enrollment(request, check_access=True):
             return HttpResponseBadRequest(_("Course id is invalid"))
         
         # EOL
-        if configuration_helpers.get_value('IS_CJLANDES', False) and have_enroll(user, course_id):
+        site = get_current_site()
+        if 'cajalosandes' in site.domain and have_enroll(user, course_id):
             log.warning(
                 u"User %s is already enrolled in another course",
                 user.username
