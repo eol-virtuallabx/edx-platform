@@ -105,6 +105,7 @@ from openedx.core.djangoapps.plugin_api.views import EdxFragmentView
 from openedx.core.djangoapps.programs.utils import ProgramMarketingDataExtender
 from openedx.core.djangoapps.self_paced.models import SelfPacedConfiguration
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangoapps.theming.helpers import get_current_site
 from openedx.core.djangoapps.util.user_messages import PageLevelMessages
 from openedx.core.djangoapps.zendesk_proxy.utils import create_zendesk_ticket
 from openedx.core.djangolib.markup import HTML, Text
@@ -930,7 +931,8 @@ def course_about(request, course_id):
         is_course_full = CourseEnrollment.objects.is_course_full(course)
         ### EOL ###
         only_one_enroll = True
-        if configuration_helpers.get_value('IS_CJLANDES', False):
+        site = get_current_site()
+        if 'cajalosandes' in site.domain:
             try:
                 try:
                     enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=request.user.extrainfo.labx_rut, is_active=True).order_by('created')
