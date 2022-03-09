@@ -263,9 +263,9 @@ def have_enroll(user, course_key):
             for course_enrolled in enrolled:
                 if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
                     have_enroll = True
-        except User.extrainfo.RelatedObjectDoesNotExist:
+        except User.extrainfo.RelatedObjectDoesNotExist as e:
             log.error('Error - User {} does not have labx_rut, exception: {}'.format(user, str(e)))
-    except AttributeError:
+    except AttributeError as e:
         log.error('Error - User {} does not have labx_rut or custom_reg_form not installed, exception: {}'.format(user, str(e)))
     return have_enroll 
 

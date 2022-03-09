@@ -938,9 +938,9 @@ def course_about(request, course_id):
                         if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
                             can_enroll = False
                             only_one_enroll = False
-                except User.extrainfo.RelatedObjectDoesNotExist:
+                except User.extrainfo.RelatedObjectDoesNotExist as e:
                     log.error('Error - User {} does not have labx_rut, exception: {}'.format(request.user, str(e)))
-            except AttributeError:
+            except AttributeError as e:
                 log.error('Error - User {} does not have labx_rut or custom_reg_form not installed, exception: {}'.format(request.user, str(e)))
         ### EOL END ###
         # Register button should be disabled if one of the following is true:
