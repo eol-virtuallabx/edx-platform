@@ -932,11 +932,13 @@ def course_about(request, course_id):
         ### EOL ###
         only_one_enroll = True
         site = get_current_site()
-        if 'cajalosandes' in site.domain:
+        if 'cajalosandes' in site.domain and 'ICHNAS' not in course_id:
             try:
                 try:
                     enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=request.user.extrainfo.labx_rut, is_active=True).order_by('created')
                     for course_enrolled in enrolled:
+                        if 'ICHNAS' in str(course_enrolled.course_id):
+                            continue
                         if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
                             can_enroll = False
                             only_one_enroll = False
