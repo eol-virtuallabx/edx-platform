@@ -258,10 +258,14 @@ def have_enroll(user, course_key):
     ### EOL ###
     have_enroll = False
     course = get_course_by_id(course_key)
+    if 'ICHNAS' in str(course_key):
+        return False
     try:
         try:
             enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=user.extrainfo.labx_rut, is_active=True).order_by('created')
             for course_enrolled in enrolled:
+                if 'ICHNAS' in str(course_enrolled.course_id):
+                    continue
                 if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
                     have_enroll = True
         except User.extrainfo.RelatedObjectDoesNotExist as e:
