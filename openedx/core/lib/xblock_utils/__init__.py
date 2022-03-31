@@ -15,6 +15,7 @@ import six
 import webpack_loader.utils
 from contracts import contract
 from django.conf import settings
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import reverse
@@ -323,7 +324,24 @@ def add_staff_markup(user, disable_staff_debug_info, block, view, frag, context)
         return frag
     # TODO: make this more general, eg use an XModule attribute instead
     if isinstance(block, VerticalBlock) and (not context or not context.get('child_of_vertical', False)):
-        return frag
+        # check that the course is a mongo backed Studio course before doing work
+        is_studio_course = block.course_edit_method == "Studio"
+
+        if is_studio_course:
+            # build edit link to unit in CMS. Can't use reverse here as lms doesn't load cms's urls.py
+            cms_base = configuration_helpers.get_value('CMS_BASE', settings.CMS_BASE)
+            edit_link = "//" + cms_base + '/container/' + text_type(block.location)
+
+            # return edit link in rendered HTML for display
+            return wrap_fragment(
+                frag,
+                render_to_string(
+                    "edit_unit_link.html",
+                    {'frag_content': frag.content, 'edit_link': edit_link}
+                )
+            )
+        else:
+            return frag
 
     if isinstance(block, SequenceModule) or getattr(block, 'HIDDEN', False):
         return frag
