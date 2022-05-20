@@ -141,7 +141,15 @@ def _update_certificate_context(context, course, user_certificate, platform_name
     certificate_type_description = get_certificate_description(user_certificate.mode, certificate_type, platform_name)
     if certificate_type_description:
         context['certificate_type_description'] = certificate_type_description
-
+    # EOL
+    context['eol_certificate_date'] = date
+    try:
+        grade_percent = float(user_certificate.grade)
+    except ValueError:
+        grade_percent = 0.0
+    context['eol_grade_percent'] = str(grade_percent)
+    context['eol_grade_integer'] = str(int(grade_percent * 100))
+    # EOL
     # Translators: This text describes the purpose (and therefore, value) of a course certificate
     context['certificate_info_description'] = _(u"{platform_name} acknowledges achievements through "
                                                 u"certificates, which are awarded for course activities "
