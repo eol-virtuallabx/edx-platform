@@ -931,6 +931,8 @@ def course_about(request, course_id):
         is_course_full = CourseEnrollment.objects.is_course_full(course)
         ### EOL ###
         only_one_enroll = True
+        ichnas_enroll = True
+        is_ichnas_course = False
         site = get_current_site()
         if 'cajalosandes' in site.domain and 'ICHNAS' not in course_id:
             try:
@@ -942,6 +944,24 @@ def course_about(request, course_id):
                         if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
                             can_enroll = False
                             only_one_enroll = False
+                except User.extrainfo.RelatedObjectDoesNotExist as e:
+                    log.error('Error - User {} does not have labx_rut, exception: {}'.format(request.user, str(e)))
+            except AttributeError as e:
+                log.error('Error - User {} does not have labx_rut or custom_reg_form not installed, exception: {}'.format(request.user, str(e)))
+        elif 'cajalosandes' in site.domain and 'ICHNAS0002' in course_id and not registered:
+            is_ichnas_course = True
+            try:
+                try:
+                    ichnas_courses = []
+                    enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=request.user.extrainfo.labx_rut, is_active=True)
+                    for course_enrolled in enrolled:
+                        if 'ICHNAS0002' == course_enrolled.course_id.course:
+                            ichnas_courses.append(course_enrolled.course_id)
+                        else:
+                            continue
+                    if len(ichnas_courses) > 0:
+                        can_enroll = False
+                        ichnas_enroll = False
                 except User.extrainfo.RelatedObjectDoesNotExist as e:
                     log.error('Error - User {} does not have labx_rut, exception: {}'.format(request.user, str(e)))
             except AttributeError as e:
@@ -990,6 +1010,8 @@ def course_about(request, course_id):
             'is_course_full': is_course_full,
             'can_enroll': can_enroll,
             'only_one_enroll': only_one_enroll,
+            'ichnas_enroll':ichnas_enroll,
+            'is_ichnas_course':is_ichnas_course,
             'invitation_only': invitation_only,
             'active_reg_button': active_reg_button,
             'is_shib_course': is_shib_course,
