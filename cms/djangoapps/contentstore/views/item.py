@@ -936,6 +936,8 @@ def _duplicate_item(parent_usage_key, duplicate_source_usage_key, user, display_
             # let us know if we need to handle these or not.
             dest_module.xmodule_runtime = StudioEditModuleRuntime(user)
             children_handled = dest_module.studio_post_duplicate(store, source_item)
+            if dest_usage_key.block_type == "iaaxblock":
+                store.update_item(dest_module, user.id)
 
         # Children are not automatically copied over (and not all xblocks have a 'children' attribute).
         # Because DAGs are not fully supported, we need to actually duplicate each child as well.
@@ -970,6 +972,17 @@ def delete_item(request, usage_key):
     """
     _delete_item(usage_key, request.user)
 
+def cascade_delete(usage_key, store, user):
+    to_delete = store.get_item(usage_key)
+    if to_delete.has_children:
+        for child in to_delete.children:
+            if hasattr(to_delete, 'iaa_delete'):
+                to_delete.iaa_delete()
+            else:
+                cascade_delete(child, store, user)
+    else:
+        if hasattr(to_delete, 'iaa_delete'):
+            to_delete.iaa_delete()
 
 def _delete_item(usage_key, user):
     """
@@ -987,7 +1000,7 @@ def _delete_item(usage_key, user):
             existing_tabs = course.tabs or []
             course.tabs = [tab for tab in existing_tabs if tab.get('url_slug') != usage_key.block_id]
             store.update_item(course, user.id)
-
+        cascade_delete(usage_key, store, user)
         # Delete user bookmarks
         bookmarks_api.delete_bookmarks(usage_key)
         store.delete_item(usage_key, user.id)
