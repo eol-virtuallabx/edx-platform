@@ -30,6 +30,24 @@ RUN curl -L -o /tmp/dockerize.tar.gz https://github.com/jwilder/dockerize/releas
     && tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
     && rm /tmp/dockerize.tar.gz
 
+# Common requirements
+WORKDIR /openedx/edx-platform
+COPY requirements requirements
+COPY common/lib/sandbox-packages common/lib/sandbox-packages
+COPY common/lib/symmath common/lib/symmath
+
+# Setup sandbox
+ENV SANDBOX_ENV=/openedx/venv/sandbox
+RUN groupadd -r sandbox && useradd -m -r -g sandbox sandbox \
+    && mkdir -p $SANDBOX_ENV && chown sandbox:sandbox $SANDBOX_ENV
+
+RUN python3 -m venv --copies $SANDBOX_ENV \
+    && $SANDBOX_ENV/bin/pip install --no-cache-dir pip==20.0.2 \
+    && $SANDBOX_ENV/bin/pip install --no-cache-dir wheel==0.36.2 \
+    # Install numpy before scipy
+    && $SANDBOX_ENV/bin/pip install --no-cache-dir $(grep -o "^numpy==\w\+.\w\+.\w\+" requirements/edx-sandbox/py35.txt) \
+    && $SANDBOX_ENV/bin/pip install --no-cache-dir -r requirements/edx-sandbox/py35.txt
+
 ## Checkout edx-platform code
 ADD . /openedx/edx-platform
 WORKDIR /openedx/edx-platform
