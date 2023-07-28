@@ -254,26 +254,6 @@ def _update_email_opt_in(request, org):
         email_opt_in_boolean = email_opt_in == 'true'
         preferences_api.update_email_opt_in(request.user, org, email_opt_in_boolean)
 
-def have_enroll(user, course_key):
-    ### EOL ###
-    have_enroll = False
-    course = get_course_by_id(course_key)
-    if 'ICHNAS' in str(course_key):
-        return False
-    try:
-        try:
-            enrolled = CourseEnrollment.objects.filter(user__extrainfo__labx_rut=user.extrainfo.labx_rut, is_active=True).order_by('created')
-            for course_enrolled in enrolled:
-                if 'ICHNAS' in str(course_enrolled.course_id):
-                    continue
-                if course_enrolled.course.start_date is not None and course.end is not None and course_enrolled.course.end_date is not None and course.start is not None and course_enrolled.course.end_date > course.start and course_enrolled.course.start_date < course.end:
-                    have_enroll = True
-        except User.extrainfo.RelatedObjectDoesNotExist as e:
-            log.error('Error - User {} does not have labx_rut, exception: {}'.format(user, str(e)))
-    except AttributeError as e:
-        log.error('Error - User {} does not have labx_rut or custom_reg_form not installed, exception: {}'.format(user, str(e)))
-    return have_enroll 
-
 @transaction.non_atomic_requests
 @require_POST
 @outer_atomic(read_committed=True)
@@ -346,15 +326,6 @@ def change_enrollment(request, check_access=True):
                 course_id
             )
             return HttpResponseBadRequest(_("Course id is invalid"))
-        
-        # EOL
-        site = get_current_site()
-        if 'cajalosandes' in site.domain and have_enroll(user, course_id):
-            log.warning(
-                u"User %s is already enrolled in another course",
-                user.username
-            )
-            return HttpResponseBadRequest("Tienes otro curso inscrito para este periodo")
 
         # Record the user's email opt-in preference
         if settings.FEATURES.get('ENABLE_MKTG_EMAIL_OPT_IN'):
